@@ -1,0 +1,22 @@
+pipeline{
+ agent any
+ stages {
+        stage('build') {
+            steps{
+                echo 'build'
+                sh "docker build -t flaskr examples/"
+            }
+        }
+        stage('push') {
+            steps{
+                sh "docker save flaskr > examples/flaskr.tar"
+                sh 'ansible-playbook -i examples/ansible_hosts examples/flaskapp.yml'
+            }
+        }
+    }
+ post {
+     always {
+        echo 'end'
+     }
+ }
+}

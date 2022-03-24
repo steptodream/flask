@@ -1,0 +1,41 @@
+- hosts: flaskapp
+  remote_user: root
+  tasks:
+  - name: copy docker image to remote server
+    copy:
+      src: flaskr.tar
+      dest: /usr/local/dockerimage/flaskr.tar
+    register: result
+  - debug:
+      var: result
+
+  - name: load docker image
+    docker_image:
+      name: flaskr:latest
+      load_path: /usr/local/dockerimage/flaskr.tar
+      state: present
+      source: load
+    register: result
+  - debug:
+      var: result
+  
+  - name: stop and remove old 
+    docker_container:
+      name: flaskrapp
+      state: absent
+    register: result
+  - debug:
+      var: result
+  
+  - name: flaskr container
+    docker_container:
+      name: flaskrapp
+      image: flaskr:latest
+      state: started
+      ports:
+        - "80:5000"
+
+    register: result
+  - debug:
+      var: result
+  

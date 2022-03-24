@@ -1,0 +1,2 @@
+[flaskapp]
+42.192.189.4   ansible_ssh_user=root ansible_ssh_private_key_file=/var/lib/jenkins/.ssh/id_rsa
