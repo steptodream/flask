@@ -2,6 +2,7 @@ FROM python:3.7
 
 COPY ./tutorial /tutorial
 WORKDIR /tutorial
+
 ENV FLASK_APP=flaskr
 ENV FLASK_ENV=development
 
