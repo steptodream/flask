@@ -6,10 +6,10 @@ WORKDIR /tutorial
 ENV FLASK_APP=flaskr
 ENV FLASK_ENV=development
 
+RUN pip install --upgrade pip && pip install -e .
+
 RUN groupadd flaskapp && useradd -g flaskapp flaskapp
 USER flaskapp
-
-RUN pip install --upgrade pip && pip install -e .
 
 EXPOSE 5000
 
